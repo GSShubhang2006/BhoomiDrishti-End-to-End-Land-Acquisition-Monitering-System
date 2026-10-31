@@ -1,20 +1,17 @@
 const mongoose = require('mongoose');
 
-const isMongoConfigured = () => Boolean(process.env.MONGO_URI && process.env.MONGO_URI.trim());
-
 const connectDB = async () => {
-  if (!isMongoConfigured()) {
-    console.warn('MONGO_URI is not configured. Continuing in demo mode with in-memory fallback data.');
-    return false;
+  const mongoUri = process.env.MONGO_URI?.trim();
+  if (!mongoUri) {
+    throw new Error('MONGO_URI is required. Configure the MongoDB connection before starting the API.');
   }
 
   try {
-    await mongoose.connect(process.env.MONGO_URI);
+    await mongoose.connect(mongoUri);
     console.log('MongoDB connected successfully');
     return true;
   } catch (error) {
-    console.warn('MongoDB connection failed. Continuing in demo mode with in-memory fallback data:', error.message);
-    return false;
+    throw new Error('MongoDB connection failed. Verify MONGO_URI and database availability.', { cause: error });
   }
 };
 

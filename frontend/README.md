@@ -1,16 +1,21 @@
-# React + Vite
+# BhoomiDrishti frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+This directory contains the React 19 and Vite frontend for the BhoomiDrishti land-acquisition monitoring application. It reads and writes live records through the authenticated Express API; it does not use a local mock-data fallback.
 
-Currently, two official plugins are available:
+## Run locally
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```powershell
+npm install
+npm run dev
+```
 
-## React Compiler
+By default, the API client uses `http://localhost:5000/api`. Set `VITE_API_BASE_URL` before starting Vite or building if the API is hosted elsewhere. The backend must be configured and running; see the repository [README](../README.md) for MongoDB, environment, administrator provisioning, and local demo setup.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Checks
 
-## Expanding the Oxlint configuration
+```powershell
+npm run lint
+npm run build
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+The application includes dashboard, project, parcel/map, field-verification, compensation and resettlement, notification, report/export, audit-log, settings, and rules-based parcel-readiness pages. Synthetic records are clearly identified and must not be used for legal or operational decisions.

@@ -1,0 +1,39 @@
+.modal-backdrop{position:fixed;inset:0;z-index:1000;background:#0b2b4acc;display:grid;place-items:center;padding:18px}
+.record-modal{width:min(620px,100%);max-height:min(90vh,820px);overflow:auto;background:#fff;padding:22px;border-radius:6px;box-shadow:0 18px 55px #0b2b4a55}
+.record-modal .panel-heading{align-items:center}
+.record-modal .panel-heading h2{font-family:'Libre Baskerville',serif;color:var(--navy);font-size:18px;margin:0}
+.record-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.record-form label{display:grid;gap:6px;color:#536578;font-size:11px;font-weight:600}
+.record-form label:has(textarea){grid-column:1/-1}
+.record-form input,.record-form select,.record-form textarea{width:100%;min-height:38px;border:1px solid #cfd8e1;border-radius:3px;background:#fff;padding:8px 10px;color:var(--ink)}
+.record-form textarea{resize:vertical}
+.record-form input:focus,.record-form select:focus,.record-form textarea:focus{outline:2px solid #2468a066;border-color:var(--blue)}
+.form-error{grid-column:1/-1;color:#a52d2d;padding:10px;background:#fbeaea}
+.modal-actions{grid-column:1/-1;display:flex;justify-content:flex-end;gap:9px;padding-top:8px}
+.notification-list{display:grid;gap:12px}
+.notification-card{display:flex;gap:14px;align-items:flex-start;justify-content:space-between;background:#fff;border:1px solid var(--line);padding:17px}
+.notification-card h2{font-size:14px;color:var(--navy);margin:0 0 7px}
+.notification-card p{color:var(--muted);line-height:1.5;margin:0 0 9px}
+.notification-card small{color:var(--muted)}
+.record-warning{color:#8a5a12;background:#fff6e8;padding:10px 12px;margin-bottom:14px}
+.page-header>div,.page-header h1,.page-description,.panel,.panel-heading,.detail-kpi,.notification-card>div{min-width:0}
+.page-header{gap:16px;flex-wrap:wrap}
+.page-header h1,.panel-heading h2{overflow-wrap:anywhere}
+.filter-bar{display:flex;align-items:center;flex-wrap:wrap;gap:9px}
+.filter-bar>*{min-width:0;max-width:100%}
+.filter-search{flex:1 1 220px;min-width:min(220px,100%)}
+.table-scroll{max-width:100%;width:100%;overflow-x:auto;overscroll-behavior-x:contain}
+.table-scroll table{min-width:760px;table-layout:fixed}
+.table-scroll th,.table-scroll td{white-space:normal;overflow-wrap:anywhere;word-break:normal;vertical-align:top}
+.table-scroll th:last-child,.table-scroll td:last-child{width:90px}
+.project-cell{min-width:0;max-width:260px;overflow-wrap:anywhere}
+.project-cell b,.project-cell small{white-space:normal;overflow-wrap:anywhere}
+.badge.neutral{color:#526273;background:#eef1f4}
+.pagination{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:15px;color:var(--muted);font-size:11px}
+.pagination>div{display:flex;gap:8px}
+.pagination button:disabled{cursor:not-allowed;opacity:.5}
+.record-form select option{white-space:normal}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+@media(max-width:900px){.table-scroll table{min-width:720px}.content{padding:22px 18px 36px}.dashboard-grid,.details-grid{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:520px){.content{padding:18px 12px 28px}.page-header{display:grid}.page-header h1{font-size:24px}.pagination{align-items:flex-start;flex-direction:column}.pagination>div{width:100%}.pagination button{flex:1}.panel{padding:15px}.table-scroll table{min-width:680px}}
+@media(max-width:520px){.record-form{grid-template-columns:1fr}.record-form label:has(textarea){grid-column:auto}.notification-card{display:grid}.modal-actions{grid-column:auto}}

@@ -14,7 +14,7 @@ const auditLogSchema = new mongoose.Schema(
     entityType: {
       type: String,
       required: true,
-      enum: ['User', 'Project', 'LandParcel', 'FieldVerification'],
+      enum: ['User', 'Project', 'LandParcel', 'FieldVerification', 'Notification', 'AcquisitionProposal'],
     },
     entityId: {
       type: mongoose.Schema.Types.ObjectId,
@@ -27,10 +27,17 @@ const auditLogSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
+    isDemo: {
+      type: Boolean,
+      default: false,
+      index: true,
+    },
   },
   {
     timestamps: true,
   }
 );
+
+auditLogSchema.index({ entityType: 1, entityId: 1, timestamp: -1 });
 
 module.exports = mongoose.model('AuditLog', auditLogSchema);
