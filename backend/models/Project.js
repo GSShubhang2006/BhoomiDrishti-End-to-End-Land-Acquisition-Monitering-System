@@ -17,11 +17,34 @@ const milestoneSchema = new mongoose.Schema(
   { _id: false }
 );
 
+const readinessWeightsSchema = new mongoose.Schema(
+  {
+    missingDocument: { type: Number, min: 0 },
+    documentReviewPending: { type: Number, min: 0 },
+    unconfiguredChecklist: { type: Number, min: 0 },
+    verificationNotScheduled: { type: Number, min: 0 },
+    verificationPending: { type: Number, min: 0 },
+    verificationOverdue: { type: Number, min: 0 },
+    approvalPending: { type: Number, min: 0 },
+    approvalUnknown: { type: Number, min: 0 },
+    compensationOutstanding: { type: Number, min: 0 },
+    compensationUnknown: { type: Number, min: 0 },
+    rehabilitationOutstanding: { type: Number, min: 0 },
+    rehabilitationUnknown: { type: Number, min: 0 },
+    overdueMilestone: { type: Number, min: 0 },
+  },
+  { _id: false }
+);
+
 const projectSchema = new mongoose.Schema(
   {
     name: {
       type: String,
       required: true,
+      trim: true,
+    },
+    projectCode: {
+      type: String,
       trim: true,
     },
     description: {
@@ -53,13 +76,24 @@ const projectSchema = new mongoose.Schema(
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
-      required: true,
     },
+    isDemo: { type: Boolean, default: false, index: true },
+    archivedAt: { type: Date, default: null },
     milestones: [milestoneSchema],
+    requiredDocumentTypes: {
+      type: [{ type: String, trim: true }],
+      default: [],
+    },
+    readinessWeights: {
+      type: readinessWeightsSchema,
+      default: undefined,
+    },
   },
   {
     timestamps: true,
   }
 );
+
+projectSchema.index({ projectCode: 1 }, { unique: true, sparse: true });
 
 module.exports = mongoose.model('Project', projectSchema);

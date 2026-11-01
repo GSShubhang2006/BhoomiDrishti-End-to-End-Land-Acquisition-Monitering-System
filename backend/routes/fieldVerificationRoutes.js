@@ -1,4 +1,5 @@
 const express = require('express');
+const { requireRole } = require('../middleware/authentication');
 const {
   createFieldVerification,
   getFieldVerifications,
@@ -9,10 +10,10 @@ const {
 
 const router = express.Router();
 
-router.post('/', createFieldVerification);
+router.post('/', requireRole('admin', 'project_officer'), createFieldVerification);
 router.get('/', getFieldVerifications);
 router.get('/:id', getFieldVerificationById);
-router.put('/:id', updateFieldVerification);
-router.delete('/:id', deleteFieldVerification);
+router.put('/:id', requireRole('admin', 'project_officer', 'field_officer'), updateFieldVerification);
+router.delete('/:id', requireRole('admin'), deleteFieldVerification);
 
 module.exports = router;

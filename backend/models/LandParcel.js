@@ -4,9 +4,13 @@ const locationSchema = new mongoose.Schema(
   {
     latitude: {
       type: Number,
+      min: -90,
+      max: 90,
     },
     longitude: {
       type: Number,
+      min: -180,
+      max: 180,
     },
     address: {
       type: String,
@@ -19,6 +23,22 @@ const locationSchema = new mongoose.Schema(
     },
     district: {
       type: String,
+    },
+    stateCode: {
+      type: String,
+      trim: true,
+    },
+    districtCode: {
+      type: String,
+      trim: true,
+    },
+    subdistrictCode: {
+      type: String,
+      trim: true,
+    },
+    villageCode: {
+      type: String,
+      trim: true,
     },
     state: {
       type: String,
@@ -46,16 +66,28 @@ const compensationSchema = new mongoose.Schema(
   {
     estimatedAmount: {
       type: Number,
+      min: 0,
     },
     approvedAmount: {
       type: Number,
+      min: 0,
     },
     paidAmount: {
       type: Number,
+      min: 0,
+    },
+    currency: {
+      type: String,
+      trim: true,
+      uppercase: true,
+      match: /^[A-Z]{3}$/,
     },
     status: {
       type: String,
       enum: ['pending', 'approved', 'partially_paid', 'paid'],
+    },
+    dueDate: {
+      type: Date,
     },
     paymentDate: {
       type: Date,
@@ -104,15 +136,31 @@ const documentSchema = new mongoose.Schema(
   {
     name: {
       type: String,
+      required: true,
+      trim: true,
     },
     type: {
       type: String,
+      required: true,
+      trim: true,
     },
     url: {
       type: String,
     },
     uploadedAt: {
       type: Date,
+      default: Date.now,
+    },
+    status: {
+      type: String,
+      enum: ['pending', 'approved', 'rejected'],
+      default: 'pending',
+    },
+    reviewedAt: {
+      type: Date,
+    },
+    reviewRemarks: {
+      type: String,
     },
   },
   { _id: false }
@@ -129,10 +177,21 @@ const landParcelSchema = new mongoose.Schema(
       type: String,
       required: true,
       trim: true,
+      maxlength: 100,
+    },
+    surveyReferenceSource: {
+      type: String,
+      trim: true,
+      maxlength: 200,
+    },
+    parcelCode: {
+      type: String,
+      trim: true,
     },
     area: {
       type: Number,
       required: true,
+      min: 0.0001,
     },
     areaUnit: {
       type: String,
@@ -142,6 +201,9 @@ const landParcelSchema = new mongoose.Schema(
       type: locationSchema,
     },
     landType: {
+      type: String,
+    },
+    subdistrict: {
       type: String,
     },
     acquisitionStatus: {
@@ -172,6 +234,7 @@ const landParcelSchema = new mongoose.Schema(
       type: approvalSchema,
     },
     documents: [documentSchema],
+    isDemo: { type: Boolean, default: false, index: true },
   },
   {
     timestamps: true,
